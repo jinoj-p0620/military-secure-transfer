@@ -1,0 +1,108 @@
+{% extends 'Admin/adminhome.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-warning text-dark rounded-top-4">
+          <h4 class="mb-0">
+            <i class="bi bi-pencil-square me-2"></i>Edit Staff Details
+          </h4>
+          <small>Update staff information</small>
+        </div>
+
+        <div class="card-body p-4">
+
+          <form method="post" action="/myapp/edit_staff_post/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Department -->
+            <h6 class="text-warning mb-3">Department Information</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Department</label>
+                <select class="form-select" name="select" required>
+                  {% for i in data %}
+                  <option value="{{ i.id }}" {% if data2.DEPARTMENT_id == i.id %}selected{% endif %}>
+                    {{ i.department_name }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Post</label>
+                <input type="text" name="post" class="form-control" value="{{ data2.post }}">
+              </div>
+            </div>
+
+            <!-- Personal Info -->
+            <h6 class="text-warning mb-3">Personal Information</h6>
+            <div class="row g-3 mb-4">
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Full Name</label>
+                <input type="text" name="name" class="form-control" value="{{ data2.name }}">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control" value="{{ data2.email }}">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Phone</label>
+                <input type="text" name="phone" class="form-control" value="{{ data2.phone }}">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Place</label>
+                <input type="text" name="place" class="form-control" value="{{ data2.place }}">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">Pincode</label>
+                <input type="text" name="pincode" class="form-control" value="{{ data2.pincode }}">
+              </div>
+
+            </div>
+
+            <!-- Photo -->
+            <h6 class="text-warning mb-3">Profile Photo</h6>
+            <div class="row g-3 mb-4 align-items-center">
+
+              <div class="col-md-4 text-center">
+                <img src="{{ data2.photo.url }}" class="img-thumbnail rounded-circle mb-2" width="120" height="120">
+                <p class="text-muted small">Current Photo</p>
+              </div>
+
+              <div class="col-md-8">
+                <label class="form-label fw-semibold">Change Photo</label>
+                <input type="file" name="photo" class="form-control">
+              </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-end gap-3 mt-4">
+              <a href="/myapp/view_staff/" class="btn btn-outline-secondary px-4">
+                Cancel
+              </a>
+              <button type="submit" class="btn btn-warning px-4 text-dark">
+                <i class="bi bi-save me-1"></i>Update Staff
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

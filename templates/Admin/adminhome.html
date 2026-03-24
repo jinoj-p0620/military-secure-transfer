@@ -1,0 +1,691 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin — SilentPixel</title>
+  <meta name="description" content="SilentPixel – Admin console for secure image-based communication.">
+  <meta name="keywords" content="steganography, security, military, encryption">
+
+  <!-- Favicons -->
+  <link href="{% static 'home/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'home/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'home/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'home/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'home/assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- Page overrides -->
+  <style>
+    body.index-page {
+      background: radial-gradient(circle at top left, #1b3258 0%, #050814 45%, #030509 100%);
+      color: #e5e9f2;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .header {
+      background: rgba(3, 9, 20, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .header .sitename {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+    }
+
+    #navmenu > ul > li > a {
+      text-transform: none;
+      font-size: 0.94rem;
+      letter-spacing: 0.03em;
+    }
+
+    #navmenu > ul > li > a.active,
+    #navmenu > ul > li > a:hover {
+      color: #4dd0ff;
+    }
+
+    .hero.section {
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-background {
+      position: absolute;
+      inset: 0;
+      opacity: 0.25;
+      background: radial-gradient(circle at 10% 0%, #407bff 0, transparent 55%),
+                  radial-gradient(circle at 90% 100%, #10b981 0, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      display: none;
+    }
+
+    .hero .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto 1.8rem;
+      color: #c8d0e0;
+      font-size: 0.98rem;
+    }
+
+    .hero .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 12px 30px rgba(15, 118, 178, 0.45);
+    }
+
+    .hero .btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .hero-image-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image {
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .section-title span.description-title {
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.8rem;
+    }
+
+    .section-title h2 {
+      color: #f9fafb;
+    }
+
+    .section-title p {
+      color: #cbd5f5;
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    .about.section,
+    .services.section,
+    .steps.section {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.95));
+      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .about .image-box {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .about .content h2 {
+      font-size: 1.6rem;
+    }
+
+    .about .highlight-text {
+      color: #e5e7eb;
+      font-size: 0.98rem;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .feature-item h4 {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .feature-item p {
+      font-size: 0.9rem;
+      color: #cbd5f5;
+    }
+
+    .feature-item .icon-box i {
+      font-size: 1.4rem;
+      color: #38bdf8;
+    }
+
+    .services .service-item {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 1.3rem 1.4rem;
+      height: 100%;
+    }
+
+    .services .service-title {
+      font-size: 1.05rem;
+    }
+
+    .services .service-text {
+      color: #cbd5f5;
+      font-size: 0.9rem;
+    }
+
+    .steps .process-item .content {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .steps .step-content p {
+      color: #cbd5f5;
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      background: #020617;
+      color: #cbd5f5;
+    }
+
+    .footer .sitename {
+      color: #e5e7eb;
+    }
+
+    .footer a {
+      color: #93c5fd;
+    }
+
+    .footer a:hover {
+      color: #e5e7eb;
+    }
+  </style>
+
+</head>
+
+<body class="index-page">
+
+  <!-- ================= HEADER ================= -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <h1 class="sitename">SilentPixel</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="/myapp/adminhome/" class="active">Home</a></li>
+
+          <!-- Notification dropdown -->
+{#          <li class="dropdown">#}
+{#            <a href="/myapp/view_notification/#ab">#}
+{#              <span>Notification</span> <i class="bi bi-chevron-down toggle-dropdown"></i>#}
+{#            </a>#}
+{#            <ul>#}
+{#              <li><a href="/myapp/send_notification/#ab">Send</a></li>#}
+{#              <li><a href="/myapp/view_notification/#ab">View</a></li>#}
+{#            </ul>#}
+{#          </li>#}
+            <li><a href="/myapp/view_notification/#ab">Notification</a></li>
+            <li><a href="/myapp/view_staff/#ab">Staff</a></li>
+
+{#          <!-- Staff dropdown -->#}
+{#          <li class="dropdown">#}
+{#            <a href="#"><span>Staff</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>#}
+{#            <ul>#}
+{#              <li><a href="/myapp/add_staff_get/#ab">Add Staff</a></li>#}
+{#              <li><a href="/myapp/view_staff/#ab">View Staff</a></li>#}
+{#            </ul>#}
+{#          </li>#}
+
+          <li><a href="/myapp/view_reply/#ab">Complaints</a></li>
+          <li><a href="/myapp/view_soldier_admin/#ab">Soldiers</a></li>
+          <li><a href="/myapp/view_department/#ab">Departments</a></li>
+          <li><a href="/myapp/view_designation/#ab">Designations</a></li>
+
+          <!-- Department dropdown -->
+{#          <li class="dropdown">#}
+{#            <a href="#"><span>Departments</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>#}
+{#            <ul>#}
+{#              <li><a href="/myapp/add_department/#ab">Add Department</a></li>#}
+{#              <li><a href="/myapp/view_department/#ab">View Departments</a></li>#}
+{#            </ul>#}
+{#          </li>#}
+
+          <!-- Designation dropdown -->
+{#          <li class="dropdown">#}
+{#            <a href="#"><span>Designations</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>#}
+{#            <ul>#}
+{#              <li><a href="/myapp/add_designation/#ab">Add Designation</a></li>#}
+{#              <li><a href="/myapp/view_designation/#ab">View Designations</a></li>#}
+{#            </ul>#}
+{#          </li>#}
+            <li><a href="/myapp/Logout/">Logout</a></li>
+        </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <div class="header-social-links">
+        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div>
+
+    </div>
+  </header>
+  <!-- =============== END HEADER =============== -->
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="hero-background">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-10">
+            <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+              <h1>SilentPixel Admin Console</h1>
+              <p>
+                Manage secure, image-based communication for field units and command centres from a single,
+                trusted dashboard. Encode, send and track sensitive data without drawing attention.
+              </p>
+
+              <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+                <a href="#about" class="btn btn-primary">Explore the System</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+          <div class="col-lg-8">
+            <div class="hero-image-container" data-aos="zoom-in" data-aos-delay="400">
+              <div class="hero-image">
+                <img src="{% static 'home/assets/img/about/india-gate-mornings.jpg' %}" alt="Secure communication across borders" class="img-fluid">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">Overview</span>
+        <h2>What is SilentPixel?</h2>
+        <p>
+          SilentPixel is a secure communication platform that hides encrypted military messages inside ordinary images.
+          It is built for environments where even the existence of a message can put lives at risk.
+        </p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gx-0 gx-lg-5 gy-5 align-items-center">
+          <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="200">
+            <div class="image-wrapper">
+              <div class="image-box">
+                <img src="{% static 'home/assets/img/about/mil.jpg' %}" class="img-fluid" alt="Field operations" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+            <div class="content">
+              <div class="section-header mb-3">
+                <h2>Designed for Command, Built for the Field</h2>
+              </div>
+
+              <p class="highlight-text">
+                From headquarters to remote units, SilentPixel keeps communication silent on the outside
+                and crystal clear to those who are allowed to see it.
+              </p>
+
+              <div class="features-list mt-3">
+
+                <div class="feature-item" data-aos="zoom-in" data-aos-delay="300">
+                  <div class="icon-box">
+                    <i class="bi bi-shield-lock"></i>
+                  </div>
+                  <div class="text">
+                    <h4>End-to-End Stealth</h4>
+                    <p>
+                      Messages are encrypted and hidden in images so that they look like regular files even if intercepted.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="feature-item" data-aos="zoom-in" data-aos-delay="400">
+                  <div class="icon-box">
+                    <i class="bi bi-diagram-3"></i>
+                  </div>
+                  <div class="text">
+                    <h4>Role-Based Access</h4>
+                    <p>
+                      Separate access for Administrators, Departments and Soldiers ensures each user sees only what they need.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="feature-item" data-aos="zoom-in" data-aos-delay="500">
+                  <div class="icon-box">
+                    <i class="bi bi-geo-alt"></i>
+                  </div>
+                  <div class="text">
+                    <h4>Location-Aware Security</h4>
+                    <p>
+                      Optional geo-fencing lets you restrict decoding to approved locations, adding an extra layer of control.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /About Section -->
+
+    <div id="ab">
+      {% block body %}
+      {% endblock %}
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">Capabilities</span>
+        <h2>What You Can Do Here</h2>
+        <p>
+          The admin console brings together all tools needed to coordinate secure image-based messaging
+          between command and field units.
+        </p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="services-container">
+          <div class="row g-4">
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+              <div class="service-item">
+                <div class="service-icon">
+                  <i class="bi bi-image"></i>
+                </div>
+                <div class="service-content">
+                  <span class="service-number">01</span>
+                  <h3 class="service-title">Secure Image Encoding</h3>
+                  <p class="service-text">
+                    Convert sensitive text or codes into harmless-looking images that can be shared through normal channels
+                    like email or chat without revealing their purpose.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+              <div class="service-item">
+                <div class="service-icon">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div class="service-content">
+                  <span class="service-number">02</span>
+                  <h3 class="service-title">User & Role Management</h3>
+                  <p class="service-text">
+                    Create and manage staff, departments and soldiers. Control who can send, decode or only view messages.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+              <div class="service-item">
+                <div class="service-icon">
+                  <i class="bi bi-radar"></i>
+                </div>
+                <div class="service-content">
+                  <span class="service-number">03</span>
+                  <h3 class="service-title">Location Lock & Policy</h3>
+                  <p class="service-text">
+                    Apply location-based rules so that decoding can only happen inside your defined operational zones or bases.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+              <div class="service-item">
+                <div class="service-icon">
+                  <i class="bi bi-clipboard-data"></i>
+                </div>
+                <div class="service-content">
+                  <span class="service-number">04</span>
+                  <h3 class="service-title">Audit & Message History</h3>
+                  <p class="service-text">
+                    Track who sent what, when and to whom. Keep a clean record of mission-critical communication
+                    for review and analysis.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Services Section -->
+
+    <!-- Steps Section -->
+    <section id="steps" class="steps section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">Workflow</span>
+        <h2>How a Message Travels</h2>
+        <p>
+          The system keeps the process simple for operators while applying strong protection in the background.
+        </p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="steps-5">
+          <div class="process-container">
+
+            <div class="process-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="content">
+                <span class="step-number">01</span>
+                <div class="card-body">
+                  <div class="step-icon">
+                    <i class="bi bi-pencil-square"></i>
+                  </div>
+                  <div class="step-content">
+                    <h3>Prepare the Intel</h3>
+                    <p>
+                      An authorised user drafts the message, selects recipients and chooses a base image from approved sources.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-item" data-aos="fade-up" data-aos-delay="300">
+              <div class="content">
+                <span class="step-number">02</span>
+                <div class="card-body">
+                  <div class="step-icon">
+                    <i class="bi bi-lock"></i>
+                  </div>
+                  <div class="step-content">
+                    <h3>Encrypt & Embed</h3>
+                    <p>
+                      The system encrypts the content, hides it inside the image and attaches the necessary keys and policies.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-item" data-aos="fade-up" data-aos-delay="400">
+              <div class="content">
+                <span class="step-number">03</span>
+                <div class="card-body">
+                  <div class="step-icon">
+                    <i class="bi bi-send"></i>
+                  </div>
+                  <div class="step-content">
+                    <h3>Send Through Any Channel</h3>
+                    <p>
+                      The image is delivered using your usual communication tools. To outsiders it looks like a normal file.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="process-item" data-aos="fade-up" data-aos-delay="500">
+              <div class="content">
+                <span class="step-number">04</span>
+                <div class="card-body">
+                  <div class="step-icon">
+                    <i class="bi bi-check2-circle"></i>
+                  </div>
+                  <div class="step-content">
+                    <h3>Verify & Archive</h3>
+                    <p>
+                      Authorised recipients decode the content, confirm receipt and the system logs the event for future review.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Steps Section -->
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div class="address">
+            <h4>Command Centre</h4>
+            <p>Marthoma</p>
+            <p>Chungathara, 679334</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Contact</h4>
+            <p>
+              <strong>Phone:</strong> <span>+1 5589 55488 55</span><br>
+              <strong>Email:</strong> <span>info@silentpixel.app</span><br>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h4>Follow</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">SilentPixel</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        Admin UI by <a href="#">SilentPixel Team</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'home/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'home/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

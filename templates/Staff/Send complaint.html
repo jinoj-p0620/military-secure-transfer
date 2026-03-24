@@ -1,0 +1,56 @@
+{#{% extends 'Staff/department index.html' %}#}
+{#{% block body %}#}
+{##}
+{#<body>#}
+{#<form id="form1" name="form1" method="post" action="">#}
+{#  <table width="200" border="1">#}
+{#    <tr>#}
+{#      <td>Complaint</td>#}
+{#      <td><label for="textfield"></label>#}
+{#      <input type="text" name="textfield" id="textfield" /></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td colspan="2" align="center"><input type="submit" name="button" id="button" value="Send" /></td>#}
+{#      #}
+{#    </tr>#}
+{#  </table>#}
+{#</form>#}
+{#</body>#}
+{#{% endblock %}#}
+
+{% extends 'Staff/department index.html' %}
+{% block body %}
+<form action="/myapp/send_complaint_post/" method="post">
+    {% csrf_token %}
+<div class="container mt-5" style="max-width: 600px;">
+
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>Submit Complaint</h4>
+        </div>
+        <div class="card-body">
+                <div class="mb-3">
+                    <label for="complaint" class="form-label">Complaint</label>
+                    <textarea
+                        class="form-control"
+                        id="complaint"
+                        name="complaint"
+                        placeholder="Enter your complaint here..."
+                        rows="4"
+                        required></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-4">
+                        Send
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'Admin/adminhome.html' %}
+{% block body %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-5">
+
+    <div class="border-start border-4 border-primary ps-4 mb-5">
+        <h2 class="fw-black text-uppercase m-0" style="letter-spacing: -1px;">User Support Desk</h2>
+        <div class="d-flex align-items-center mt-1">
+            <span class="text-muted small fw-bold text-uppercase">Incident Reports & Resolution Tracking</span>
+            <span class="badge bg-primary ms-3 rounded-0">{{ data|length }} TOTAL TICKETS</span>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-0 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-dark text-white text-uppercase small">
+                        <tr>
+                            <th class="ps-4 py-3" style="width: 80px;">Ref</th>
+                            <th class="py-3">User Entity</th>
+                            <th class="py-3" style="width: 40%;">Incident Description</th>
+                            <th class="py-3">Resolution Status</th>
+                            <th class="py-3 text-center">Timestamp</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for i in data %}
+                        <tr class="complaint-row">
+                            <td class="ps-4">
+                                <span class="mono-text fw-bold text-primary">#{{ forloop.counter|stringformat:"02d" }}</span>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light p-2 border me-2">
+                                        <i class="bi bi-person-badge text-secondary"></i>
+                                    </div>
+                                    <span class="fw-bold text-dark">{{ i.LOGIN.username }}</span>
+                                </div>
+                            </td>
+
+                            <td class="pe-4">
+                                <p class="mb-0 small text-secondary lh-sm py-2">
+                                    {{ i.Complaint_des }}
+                                </p>
+                            </td>
+
+                            <td>
+                                {% if i.Reply == 'pending' %}
+                                    <a href="/myapp/send_reply/{{ i.id }}#ab"
+                                       class="btn btn-warning btn-sm rounded-0 fw-bold px-3 shadow-sm border-bottom border-dark border-3">
+                                        <i class="bi bi-exclamation-triangle-fill me-1"></i> SEND REPLY
+                                    </a>
+                                {% else %}
+                                    <div class="d-flex flex-column">
+                                        <span class="text-success fw-bold smaller text-uppercase"><i class="bi bi-check2-all"></i> Resolved</span>
+                                        <span class="small text-muted text-truncate" style="max-width: 150px;">{{ i.Reply }}</span>
+                                    </div>
+                                {% endif %}
+                            </td>
+
+                            <td class="text-center">
+                                <div class="badge bg-light text-dark border rounded-0 fw-normal">
+                                    <i class="bi bi-clock me-1 text-primary"></i> {{ i.date|date:"d M, Y" }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5">
+                                <div class="opacity-25 mb-2">
+                                    <i class="bi bi-shield-check fs-1"></i>
+                                </div>
+                                <p class="text-muted fw-bold text-uppercase small">No active security incidents reported</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&family=Inter:wght@400;700;900&display=swap');
+
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .fw-black { font-weight: 900; }
+    .mono-text { font-family: 'Roboto Mono', monospace; }
+    .smaller { font-size: 0.7rem; }
+
+    .complaint-row:hover {
+        background-color: #fff !important;
+        box-shadow: inset 4px 0 0 0 #0d6efd;
+    }
+
+    .table thead th {
+        letter-spacing: 1px;
+        font-weight: 700;
+        border-bottom: none;
+    }
+
+    .btn-warning {
+        transition: transform 0.2s;
+    }
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        background-color: #ffc107;
+    }
+
+    .card {
+        border: 1px solid #e9ecef !important;
+    }
+</style>
+
+{% endblock %}

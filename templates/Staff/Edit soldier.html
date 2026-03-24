@@ -1,0 +1,91 @@
+{% extends 'Staff/department index.html' %}
+{% block body %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow border-0 rounded-3">
+
+                <div class="card-header bg-dark text-white py-3">
+                    <h4 class="mb-0 text-center fw-bold">
+                        <i class="fas fa-user-edit me-2"></i>Edit Soldier Profile
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <form action="/myapp/edit_soldier_post/" method="post" enctype="multipart/form-data" id="form1">
+                        {% csrf_token %}
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="textfield" class="form-label fw-semibold">Full Name</label>
+                                <input type="text" class="form-control shadow-sm" name="textfield" id="textfield" value="{{ data.soldier_name }}" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="select" class="form-label fw-semibold">Designation</label>
+                                <select class="form-select shadow-sm" name="designation" id="select" required>
+                                    <option value="{{ data.DESIGNATION.id }}" selected>{{ data.DESIGNATION.designation }}</option>
+                                    {% for i in data2 %}
+                                        {% if data.DESIGNATION.id != i.id %}
+                                        <option value="{{ i.id }}">{{ i.designation }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Email Address</label>
+                                <input class="form-control shadow-sm" type="email" name="Email" value="{{ data.email }}" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Phone Number</label>
+                                <input class="form-control shadow-sm" type="tel" name="Phone" value="{{ data.phone }}" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Gender</label>
+                                <select class="form-select shadow-sm" name="gender">
+                                    <option value="Male" {% if data.gender == 'Male' %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if data.gender == 'Female' %}selected{% endif %}>Female</option>
+                                    <option value="Other" {% if data.gender == 'Other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Date of Birth</label>
+                                <input class="form-control shadow-sm" type="date" name="Dob" value="{{ data.dob|date:'Y-m-d' }}" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pincode</label>
+                                <input class="form-control shadow-sm" type="text" name="Pincode" value="{{ data.pincode }}" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="fileField" class="form-label fw-semibold">Update Photo</label>
+                                <input class="form-control shadow-sm" type="file" name="photo" id="fileField">
+                                <div class="form-text">Leave blank to keep current photo.</div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-success btn-lg px-5 shadow">
+                                <i class="fas fa-check-circle me-2"></i>Update Soldier Details
+                            </button>
+                            <div class="mt-3">
+                                <a href="javascript:history.back()" class="text-muted text-decoration-none small">
+                                    <i class="fas fa-arrow-left me-1"></i> Cancel and go back
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

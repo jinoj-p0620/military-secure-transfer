@@ -1,0 +1,134 @@
+{% extends 'Staff/department index.html' %}
+{% block body %}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="container py-5" style="font-family: 'Inter', sans-serif;">
+    
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">Support Tickets</h3>
+            <p class="text-muted small mb-0">Track your submitted complaints and official replies.</p>
+        </div>
+        <div class="mt-3 mt-sm-0">
+            <a href="/myapp/send_complaint/#ab" class="btn btn-primary rounded-pill px-4 shadow-sm transition-all">
+                <i class="fas fa-plus-circle me-2"></i>New Complaint
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="p-3 bg-white border rounded-3 shadow-sm">
+                <div class="text-muted small">Total Requests</div>
+                <div class="h5 fw-bold mb-0">{{ data|length }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-uppercase small fw-bold text-muted" style="width: 80px;">#</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted" style="width: 150px;">Date</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">Complaint Details</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">Official Reply</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center" style="width: 120px;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in data %}
+                    <tr>
+                        <td class="ps-4">
+                            <span class="fw-medium text-muted">{{ forloop.counter }}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <i class="far fa-calendar-alt text-primary me-2"></i>
+                                <span class="small text-dark">{{ c.date }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="mb-0 text-dark fw-medium" style="max-width: 300px; white-space: normal;">
+                                {{ c.Complaint_des }}
+                            </p>
+                        </td>
+                        <td>
+                            {% if c.Reply != "pending" and c.Reply != "" %}
+                                <div class="p-2 rounded-3 bg-light border-start border-4 border-success">
+                                    <small class="text-dark">{{ c.Reply }}</small>
+                                </div>
+                            {% else %}
+                                <span class="text-muted small font-italic">Waiting for review...</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if c.Reply != "pending" and c.Reply != "" %}
+                                <span class="badge rounded-pill bg-success-soft text-success px-3">Resolved</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-warning-soft text-warning px-3">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-5 text-muted">
+                            <div class="mb-3">
+                                <i class="fas fa-inbox fa-3x opacity-25"></i>
+                            </div>
+                            <h5>No complaints found</h5>
+                            <p class="small">If you have an issue, please use the button above to let us know.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .transition-all {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .transition-all:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    }
+
+    .bg-success-soft {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+
+    .bg-warning-soft {
+        background-color: rgba(255, 193, 7, 0.1);
+    }
+
+    /* Table Typography */
+    .table thead th {
+        border-top: none;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: #fcfcfc;
+    }
+
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+</style>
+
+{% endblock %}

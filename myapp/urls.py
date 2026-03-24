@@ -1,0 +1,68 @@
+
+from django.contrib import admin
+from django.urls import path
+
+from myapp import views
+
+urlpatterns = [
+    path('Logout/',views.Logout),
+    path('login/',views.login_get),
+    path('login_post/',views.login_post),
+    path('adminhome/',views.adminhome_get),
+    path('add_department/',views.add_department),
+    path('edit_department/<id>',views.edit_department),
+    path('delete_department/<id>',views.delete_department),
+    path('send_notification/',views.send_notification),
+    path('view_department/',views.view_department),
+    path('view_notification/',views.view_notification),
+    path('view_reply/',views.view_reply),
+    path('view_soldier_admin/',views.view_soldier_admin),
+    path('add_soldier/',views.add_soldier),
+    path('edit_soldier/',views.edit_soldier),
+    path('send_complaint/',views.send_complaint),
+    path('view_notification_dep/',views.view_notification_dep),
+    path('view_reply_dep/',views.view_reply_dep),
+    path('view_soldier_dep/',views.view_soldier_dep),
+    path('view_designation/',views.view_designation),
+    path('staff_home/',views.staff_home),
+    path('add_dept_post/',views.add_dept_post),
+    path('edit_dept_post/',views.edit_dept_post),
+    path('send_notification_post/',views.send_notification_post),
+    path('add_soldier_post/',views.add_soldier_post),
+    path('edit_soldier_post/',views.edit_soldier_post),
+    path('send_complaint_post/',views.send_complaint_post),
+    path('add_designation/',views.add_designation),
+    path('add_designation_post/',views.add_designation_post),
+    path('edit_designation/<id>',views.edit_designation),
+    path('edit_designation_post/',views.edit_designation_post),
+    path('edit_dept_post/<id>',views.edit_dept_post),
+    path('delete_designation/<id>',views.delete_designation),
+    path('delete_notification/<id>', views.delete_notification),
+    path('edit_staff_get/<id>', views.edit_staff_get),
+    path('edit_staff_post/', views.edit_staff_post),
+
+    path('add_staff_get/',views.add_staff_get),
+    path('add_staff_post/',views.add_staff_post),
+    path('view_staff/',views.view_staff),
+    path('delete_staff/<id>',views.delete_staff),
+    path('delete_soldier/<id>',views.delete_soldier),
+    path('edit_soldier/<id>',views.edit_soldier),
+    path('edit_soldier_post/',views.edit_soldier_post),
+    path('send_reply_post/',views.send_reply_post),
+    path('send_reply/<id>',views.send_reply),
+    path('upload_file/<id>',views.upload_file),
+    path('upload_file_post/',views.upload_file_post),
+    path('view_soldier_upload/',views.view_soldier_upload),
+
+    path('flutterlogin/',views.flutterlogin),
+    path('sol_view_profile/',views.sol_view_profile),
+    path('sol_view_notification/',views.sol_view_notification),
+    path('sol_view_reply/',views.sol_view_reply),
+    path('sol_send_complaint_post/',views.sol_send_complaint_post),
+    path('soldier_view_soldiers/',views.soldier_view_soldiers),
+
+
+    path('process_upload_view_post/',views.process_upload_view_post),
+    path('view_shared_files/',views.view_shared_files),
+    path('decrypt_message_api/',views.decrypt_message_api),
+]

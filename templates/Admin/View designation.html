@@ -1,0 +1,145 @@
+{% extends 'Admin/adminhome.html' %}
+{% block body %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container mt-5">
+
+    <div class="row align-items-center mb-5">
+        <div class="col-md-4 border-start border-4 border-primary ps-4">
+            <h2 class="fw-black text-uppercase m-0" style="letter-spacing: -1px;">Rank & Designation</h2>
+            <p class="text-muted small fw-bold text-uppercase mb-0">Define organizational hierarchy</p>
+        </div>
+
+        <div class="col-md-4 mt-3 mt-md-0">
+            <div class="input-group shadow-sm border border-2 border-dark rounded-0">
+                <span class="input-group-text bg-white border-0">
+                    <i class="bi bi-search text-primary"></i>
+                </span>
+                <input type="text" id="rankSearch" class="form-control border-0 fw-bold text-uppercase smaller py-2" placeholder="Search Rank Designation...">
+            </div>
+        </div>
+
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="/myapp/add_designation/#ab" class="btn btn-primary btn-lg rounded-0 fw-bold px-4 shadow-sm text-uppercase tracking-wider">
+                <i class="bi bi-person-badge-fill me-2"></i> Register New Rank
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4" id="rankContainer">
+        {% for i in data %}
+        <div class="col-md-6 col-lg-4 rank-item"> <div class="card border-0 shadow-sm designation-card h-100 position-relative overflow-hidden">
+
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="rank-index mono-text">RANK_{{ forloop.counter|stringformat:"02d" }}</div>
+                        <i class="bi bi-award text-primary opacity-50 fs-4"></i>
+                    </div>
+
+                    <h4 class="fw-black text-dark text-uppercase mb-1 rank-title">{{ i.designation }}</h4>
+                    <p class="text-muted smaller fw-bold text-uppercase letter-spacing-1">Personnel Classification</p>
+
+                    <div class="mt-4 pt-3 border-top d-flex gap-2">
+                        <a href="/myapp/edit_designation/{{ i.id }}#ab" class="btn btn-outline-dark btn-sm rounded-0 flex-grow-1 fw-bold py-2">
+                            <i class="bi bi-gear-fill me-1"></i> MODIFY
+                        </a>
+                        <a href="/myapp/delete_designation/{{ i.id }}#ab"
+                           class="btn btn-outline-danger btn-sm rounded-0 fw-bold px-3 py-2"
+                           onclick="return confirm('Archive this rank designation?')">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5 bg-white shadow-sm border-dashed">
+            <div class="mb-3 opacity-25">
+                <i class="bi bi-person-vcard fs-1"></i>
+            </div>
+            <h5 class="text-muted fw-bold text-uppercase">Empty Personnel Hierarchy</h5>
+            <p class="small text-muted">No designations have been configured in the system node.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="noResults" class="text-center py-5 d-none">
+        <h4 class="text-muted fw-bold text-uppercase">
+            <i class="bi bi-exclamation-triangle me-2"></i> No Matching Ranks Found
+        </h4>
+    </div>
+
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&family=Inter:wght@400;700;900&display=swap');
+
+    body { background-color: #f8fafc; font-family: 'Inter', sans-serif; }
+    .fw-black { font-weight: 900; }
+    .mono-text { font-family: 'Roboto Mono', monospace; }
+    .smaller { font-size: 0.7rem; }
+    .letter-spacing-1 { letter-spacing: 1px; }
+
+    /* Search Focus */
+    #rankSearch:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    /* Tactical Designation Card */
+    .designation-card {
+        background: #fff;
+        border-radius: 0;
+        border-top: 4px solid #0d6efd !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .designation-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+    }
+
+    .rank-index {
+        font-size: 0.75rem;
+        color: #0d6efd;
+        background: rgba(13, 110, 253, 0.05);
+        padding: 2px 8px;
+        border-left: 3px solid #0d6efd;
+    }
+
+    .border-dashed { border: 2px dashed #dee2e6 !important; }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('rankSearch');
+        const rankItems = document.querySelectorAll('.rank-item');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            let found = false;
+
+            rankItems.forEach(item => {
+                const title = item.querySelector('.rank-title').textContent.toLowerCase();
+
+                if (title.includes(query)) {
+                    item.style.display = ""; // Show matching
+                    found = true;
+                } else {
+                    item.style.display = "none"; // Hide non-matching
+                }
+            });
+
+            // Toggle "No Results" message
+            if (found) {
+                noResults.classList.add('d-none');
+            } else {
+                noResults.classList.remove('d-none');
+            }
+        });
+    });
+</script>
+
+{% endblock %}

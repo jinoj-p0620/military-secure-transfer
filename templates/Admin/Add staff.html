@@ -1,0 +1,141 @@
+{% extends 'Admin/adminhome.html' %}
+{% load static %}
+{% block body %}
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+
+      <!-- Card -->
+      <div class="card border-0 shadow-lg rounded-4">
+
+        <!-- Header -->
+        <div class="card-header text-white rounded-top-4"
+             style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
+          <h4 class="mb-0">
+            <i class="bi bi-person-plus-fill me-2"></i> Add Staff
+          </h4>
+          <small class="opacity-75">Create a staff login account</small>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body p-4">
+
+          <form method="post" action="/myapp/add_staff_post/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row g-4">
+
+              <!-- Department -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-building me-1"></i> Department
+                </label>
+                <select name="select" class="form-select shadow-sm" required>
+                  <option value="">Choose Department</option>
+                  {% for d in data %}
+                    <option value="{{ d.id }}">{{ d.department_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Full Name -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-person me-1"></i> Full Name
+                </label>
+                <input name="name" class="form-control shadow-sm" required>
+              </div>
+
+              <!-- Username -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-person-badge me-1"></i> Username
+                </label>
+                <input name="username" class="form-control shadow-sm" required>
+              </div>
+
+              <!-- Password -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-lock me-1"></i> Password
+                </label>
+                <input name="password" type="password" class="form-control shadow-sm" required>
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-envelope me-1"></i> Email
+                </label>
+                <input name="email" type="email" class="form-control shadow-sm">
+              </div>
+
+              <!-- Phone -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-telephone me-1"></i> Phone
+                </label>
+                <input name="phone" class="form-control shadow-sm">
+              </div>
+
+              <!-- Post -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-briefcase me-1"></i> Post
+                </label>
+                <input name="post" class="form-control shadow-sm">
+              </div>
+
+              <!-- Place -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-geo-alt me-1"></i> Place
+                </label>
+                <input name="place" class="form-control shadow-sm">
+              </div>
+
+              <!-- Pincode -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-mailbox me-1"></i> Pincode
+                </label>
+                <input name="pincode" class="form-control shadow-sm">
+              </div>
+
+              <!-- Photo -->
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">
+                  <i class="bi bi-camera me-1"></i> Photo
+                </label>
+                <input type="file" name="photo" class="form-control shadow-sm">
+              </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button class="btn btn-success px-4">
+                <i class="bi bi-check-circle me-1"></i> Add Staff
+              </button>
+              <a href="/myapp/view_staff/" class="btn btn-outline-secondary px-4">
+                Cancel
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
